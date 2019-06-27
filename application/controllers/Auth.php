@@ -46,13 +46,14 @@ class Auth extends REST_Controller
     {
         $username = $this->post('username');
         $password = $this->post('password');
-        $data = $this->LoginModel->cekAuth($username);
+        $data = $this->LoginModel->cekAuth($username, $password);
 
         if($data->num_rows() > 0){
             $message = [
             'error'   => false,
             'message' => 'Login Berhasil',
             'user'    => $username,
+            'pass'    => $password,
             ];
             $this->set_response($message, REST_Controller::HTTP_OK);    
         }else{
@@ -60,6 +61,7 @@ class Auth extends REST_Controller
             'error'   => true,
             'message' => 'Login Gagal',
             'user'    => $username,
+            'pass'    => $password,
             ];
             $this->set_response($message, REST_Controller::HTTP_OK);    
         }
